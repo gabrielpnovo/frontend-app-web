@@ -1,37 +1,20 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Products from "./pages/Products";
-import OrdensDeProducao from "./pages/OrdensDeProducao";
-import Login from "./pages/Login";
-import Layout from "./components/Layout/Layout";
+import Dashboard from "./view/pages/Dashboard";
+import Products from "./view/pages/Products";
+import OrdensDeProducao from "./view/pages/OrdensDeProducao";
+import Login from "./view/pages/Login";
+import Layout from "./view/components/Layout/Layout";
+import { handleAdicionarProduto, handleCriarOrdem, getProdutosIniciais} from "./controllers/produtosController";
 
-const produtosIniciais = [
-  { produto: "Produto A", descricao: "Descricao A", categoria: "teste A", preco: 40, atual: 50, min: 30, max: 80 },
-  { produto: "Produto B", descricao: "Descricao B", categoria: "teste B", preco: 60, atual: 70, min: 40, max: 90 },
-  { produto: "Produto C", descricao: "Descricao C", categoria: "teste C", preco: 70,  atual: 20, min: 15, max: 50 }
-];
+
+
 
 function App() {
 
   // Estado para simular autenticação
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [produtos, setProdutos] = useState(produtosIniciais);
-
-  const adicionarProduto = (novoProduto) => {
-    setProdutos((prev) => [...prev, novoProduto]);
-  };
-
-  const criarOrdem = ({ produto, quantidade }) => {
-    setProdutos((prev) =>
-      prev.map((p) =>
-        p.produto === produto
-          ? { ...p, atual: p.atual + Number(quantidade) }
-          : p
-      )
-    );
-  };
+  const [produtos, setProdutos] = useState(getProdutosIniciais());
 
   return (
     <Router>
@@ -47,12 +30,14 @@ function App() {
 
             <Route 
               path="/produtos"
-              element={<Products onAddProduto={adicionarProduto} />}
+              element={<Products onAddProduto={(novo) => handleAdicionarProduto(produtos, novo, setProdutos)} /> }
             />
+
             <Route
               path="/ordens"
-              element={<OrdensDeProducao produtos={produtos} onCriarOrdem={criarOrdem} />}
+              element={ <OrdensDeProducao produtos={produtos} onCriarOrdem={(ordem) => handleCriarOrdem(produtos, ordem, setProdutos)} />}
             />
+            
           </Routes>
         </Layout>
       ) : (
