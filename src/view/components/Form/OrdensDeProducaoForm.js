@@ -116,7 +116,7 @@ export default function OrdensDeProducaoForm({ produtos, onCriarOrdem }) {
                     fullWidth
                     value={quantidade}
                     onChange={(e) => setQuantidade(e.target.value)}
-                    inputProps={{ min: 0 }}
+                    inputProps= {{ min: 0, max: 10000, step: 1 }}
                     required
                     />
                 </Grid>

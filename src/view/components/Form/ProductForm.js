@@ -63,8 +63,9 @@ export default function ProductForm({ onAddProduto }) {
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+
+          <Grid container spacing={2} sx={{ mb: 2 }}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Nome"
                 name="nome"
@@ -74,59 +75,13 @@ export default function ProductForm({ onAddProduto }) {
                 required
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Categoria"
                 name="categoria"
                 value={formData.categoria}
                 onChange={handleChange}
                 fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                label="Preço"
-                name="preco"
-                type="number"
-                value={formData.preco}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                label="Estoque Mínimo"
-                name="min"
-                type="number"
-                value={formData.min}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
-              <TextField
-                label="Estoque Atual"
-                name="atual"
-                type="number"
-                value={formData.atual}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <TextField
-                label="Estoque Máximo"
-                name="max"
-                type="number"
-                value={formData.max}
-                onChange={handleChange}
-                fullWidth
-                required
               />
             </Grid>
 
@@ -137,8 +92,65 @@ export default function ProductForm({ onAddProduto }) {
                 value={formData.descricao}
                 onChange={handleChange}
                 fullWidth
-                multiline
-                rows={3}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} sx={{ mb: 2 }}>
+            <Grid item xs={12} md={4}>
+              <TextField
+                label="Preço"
+                name="preco"
+                type="number"
+                value={formData.preco}
+                onChange={handleChange}
+                inputProps= {{ min: 0, max: 1000, step: 0.01 }}
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} sx={{ mb: 2 }}> 
+            <Grid item xs={16} md={4}>
+              <TextField
+                label="Estoque Mínimo"
+                name="min"
+                type="number"
+                value={formData.min}
+                onChange={handleChange}
+                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                fullWidth
+                sx={{ minWidth: 200 }}
+                required
+              />
+            </Grid>
+            
+            <Grid item xs={16} md={4}>
+              <TextField
+                label="Estoque Atual"
+                name="atual"
+                type="number"
+                value={formData.atual}
+                onChange={handleChange}
+                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                fullWidth
+                sx={{ minWidth: 200 }}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={16} md={4}>
+              <TextField
+                label="Estoque Máximo"
+                name="max"
+                type="number"
+                value={formData.max}
+                onChange={handleChange}
+                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                fullWidth
+                sx={{ minWidth: 200 }}
+                required
               />
             </Grid>
           </Grid>
