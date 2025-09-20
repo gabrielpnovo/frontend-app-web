@@ -7,14 +7,16 @@ import {
   Grid,
   TextField,
   Button,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
-export default function ProductForm({ onAddProduto }) {
+export default function ProductForm({ onAddProduto, categorias }) {
   const [formData, setFormData] = useState({
     nome: "",
     descricao: "",
     preco: "",
-    categoria: "",
+    categoria: categorias[0].nome,
     min: "",
     max: "",
     atual: "",
@@ -58,12 +60,16 @@ export default function ProductForm({ onAddProduto }) {
           Criar um Novo Produto
         </Typography>
 
-        <Typography variant="subtitle1" gutterBottom align="center" color="text.secondary">
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          align="center"
+          color="text.secondary"
+        >
           Preencha os dados do novo produto
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-
           <Grid container spacing={2} sx={{ mb: 2 }}>
             <Grid item xs={12} md={4}>
               <TextField
@@ -76,13 +82,21 @@ export default function ProductForm({ onAddProduto }) {
               />
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField
-                label="Categoria"
+              <Select
+                labelId="categoria-label"
                 name="categoria"
                 value={formData.categoria}
                 onChange={handleChange}
-                fullWidth
-              />
+                label="Categoria"
+              >
+                {categorias.map((categoria) => (
+                  <MenuItem
+                    key={categoria.id} 
+                    value={categoria.nome}>
+                      {categoria.nome}
+                  </MenuItem>
+                ))}
+              </Select>
             </Grid>
 
             <Grid item xs={20}>
@@ -104,14 +118,14 @@ export default function ProductForm({ onAddProduto }) {
                 type="number"
                 value={formData.preco}
                 onChange={handleChange}
-                inputProps= {{ min: 0, max: 1000, step: 0.01 }}
+                inputProps={{ min: 0, max: 1000, step: 0.01 }}
                 fullWidth
                 required
               />
             </Grid>
           </Grid>
 
-          <Grid container spacing={2} sx={{ mb: 2 }}> 
+          <Grid container spacing={2} sx={{ mb: 2 }}>
             <Grid item xs={16} md={4}>
               <TextField
                 label="Estoque Mínimo"
@@ -119,13 +133,13 @@ export default function ProductForm({ onAddProduto }) {
                 type="number"
                 value={formData.min}
                 onChange={handleChange}
-                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                inputProps={{ min: 0, max: 10000, step: 1 }}
                 fullWidth
                 sx={{ minWidth: 200 }}
                 required
               />
             </Grid>
-            
+
             <Grid item xs={16} md={4}>
               <TextField
                 label="Estoque Atual"
@@ -133,7 +147,7 @@ export default function ProductForm({ onAddProduto }) {
                 type="number"
                 value={formData.atual}
                 onChange={handleChange}
-                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                inputProps={{ min: 0, max: 10000, step: 1 }}
                 fullWidth
                 sx={{ minWidth: 200 }}
                 required
@@ -147,7 +161,7 @@ export default function ProductForm({ onAddProduto }) {
                 type="number"
                 value={formData.max}
                 onChange={handleChange}
-                inputProps= {{ min: 0, max: 10000, step: 1 }}
+                inputProps={{ min: 0, max: 10000, step: 1 }}
                 fullWidth
                 sx={{ minWidth: 200 }}
                 required
@@ -156,7 +170,12 @@ export default function ProductForm({ onAddProduto }) {
           </Grid>
 
           <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Button type="submit" variant="contained" size="large" sx={{ px: 4, borderRadius: 2 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ px: 4, borderRadius: 2 }}
+            >
               Criar Produto
             </Button>
           </Box>

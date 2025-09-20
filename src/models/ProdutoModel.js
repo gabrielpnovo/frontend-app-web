@@ -1,4 +1,4 @@
-export function obterProdutos() {
+export function listarProdutosModel() {
   let produtos = []
   
   fetch('http://localhost:8080/produtos')
