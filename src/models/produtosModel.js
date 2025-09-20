@@ -1,8 +1,33 @@
-export const produtosIniciais = [
-  { produto: "Produto A", descricao: "Descricao A", categoria: "teste A", preco: 40, atual: 50, min: 30, max: 80 },
-  { produto: "Produto B", descricao: "Descricao B", categoria: "teste B", preco: 60, atual: 70, min: 40, max: 90 },
-  { produto: "Produto C", descricao: "Descricao C", categoria: "teste C", preco: 70,  atual: 20, min: 15, max: 50 }
-];
+export function obterProdutos() {
+  let produtos = []
+  
+  fetch('http://localhost:8080/produtos')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro na requisição: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data => {
+    data.forEach(element => {
+      let produto = {
+        produto: element.nome,
+        descricao: element.descricao,
+        categoria: element.categoriaNome,
+        preco: element.preco,
+        atual: element.estoqueAtual,
+        min: element.estoqueMinimo,
+        max: element.estoqueMaximo
+      }
+      produtos.push(produto)
+    });
+  })
+  .catch(error => {
+    console.error('Erro ao acessar a API:', error);
+  });
+
+  return produtos;
+}
 
 export function adicionarProduto(produtos, novoProduto) {
   return [...produtos, novoProduto];

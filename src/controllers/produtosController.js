@@ -1,4 +1,4 @@
-import { adicionarProduto, criarOrdem, produtosIniciais} from "../models/produtosModel";
+import { adicionarProduto, criarOrdem, obterProdutos} from "../models/produtosModel";
 
 export function handleAdicionarProduto(produtos, novoProduto, setProdutos) {
   setProdutos(adicionarProduto(produtos, novoProduto));
@@ -9,5 +9,5 @@ export function handleCriarOrdem(produtos, ordem, setProdutos) {
 }
 
 export function getProdutosIniciais() {
-  return produtosIniciais
+  return obterProdutos();
 }
