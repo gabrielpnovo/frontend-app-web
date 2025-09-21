@@ -1,7 +1,7 @@
-import { adicionarProduto, criarOrdem, listarProdutosModel} from "../models/ProdutoModel";
+import { adicionarProdutoModel, criarOrdem, listarProdutosModel} from "../models/ProdutoModel";
 
-export function handleAdicionarProduto(produtos, novoProduto, setProdutos) {
-  setProdutos(adicionarProduto(produtos, novoProduto));
+export function adicionarProdutoController(produtos, novoProduto, setProdutos) {
+  setProdutos(adicionarProdutoModel(produtos, novoProduto));
 }
 
 export function handleCriarOrdem(produtos, ordem, setProdutos) {

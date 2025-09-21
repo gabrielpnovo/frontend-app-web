@@ -1,5 +1,5 @@
 import { listarCategoriasModel } from "../models/CategoriaModel";
 
-export function listarCategoriasService() {
+export function listarCategoriasController() {
   return listarCategoriasModel();
 }

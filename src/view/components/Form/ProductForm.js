@@ -33,7 +33,7 @@ export default function ProductForm({ onAddProduto, categorias }) {
         produto: formData.nome,
         descricao: formData.descricao,
         preco: Number(formData.preco),
-        categoria: formData.categoria,
+        categoria: Number(formData.categoria),
         min: Number(formData.min),
         max: Number(formData.max),
         atual: Number(formData.atual),
@@ -92,7 +92,7 @@ export default function ProductForm({ onAddProduto, categorias }) {
                 {categorias.map((categoria) => (
                   <MenuItem
                     key={categoria.id} 
-                    value={categoria.nome}>
+                    value={categoria.id}>
                       {categoria.nome}
                   </MenuItem>
                 ))}

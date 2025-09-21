@@ -5,8 +5,8 @@ import Products from "./view/pages/Products";
 import OrdensDeProducao from "./view/pages/OrdensDeProducao";
 import Login from "./view/pages/Login";
 import Layout from "./view/components/Layout/Layout";
-import { handleAdicionarProduto, handleCriarOrdem, listarProdutosService} from "./controllers/ProdutoController";
-import { listarCategoriasService } from "./controllers/CategoriaController";
+import { adicionarProdutoController, handleCriarOrdem, listarProdutosService} from "./controllers/ProdutoController";
+import { listarCategoriasController } from "./controllers/CategoriaController";
 
 
 
@@ -16,7 +16,7 @@ function App() {
   // Estado para simular autenticação
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [produtos, setProdutos] = useState(listarProdutosService());
-  const [categorias] = useState(listarCategoriasService()); // Estado para categorias
+  const [categorias] = useState(listarCategoriasController()); // Estado para categorias
 
   return (
     <Router>
@@ -32,7 +32,7 @@ function App() {
 
             <Route 
               path="/produtos"
-              element={<Products onAddProduto={(novo) => handleAdicionarProduto(produtos, novo, setProdutos)} categorias={categorias}/> }
+              element={<Products onAddProduto={(novo) => adicionarProdutoController(produtos, novo, setProdutos)} categorias={categorias}/> }
             />
 
             <Route
