@@ -11,6 +11,7 @@ export function listarProdutosModel() {
     .then((data) => {
       data.forEach((element) => {
         let produto = {
+          id: element.id,
           produto: element.nome,
           descricao: element.descricao,
           categoria: element.categoriaNome,
@@ -60,10 +61,4 @@ export function adicionarProdutoModel(produtos, produto) {
     });
 
     return [...produtos, produto];
-}
-
-export function criarOrdem(produtos, { produto, quantidade }) {
-  return produtos.map((p) =>
-    p.produto === produto ? { ...p, atual: p.atual + Number(quantidade) } : p
-  );
 }

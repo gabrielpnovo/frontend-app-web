@@ -25,6 +25,7 @@ export default function OrdensDeProducaoForm({ produtos, onCriarOrdem }) {
 
     const novaOrdem = {
       produto: produtoSelecionado,
+      produtoId: produto ? produto.id : null,
       quantidade,
       dataEmissao,
       dataConclusao,

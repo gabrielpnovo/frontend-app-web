@@ -5,11 +5,9 @@ import Products from "./view/pages/Products";
 import OrdensDeProducao from "./view/pages/OrdensDeProducao";
 import Login from "./view/pages/Login";
 import Layout from "./view/components/Layout/Layout";
-import { adicionarProdutoController, handleCriarOrdem, listarProdutosService} from "./controllers/ProdutoController";
+import { gerarOrdemProducaoController } from "./controllers/OrdemProducaoController";
+import { adicionarProdutoController, listarProdutosService} from "./controllers/ProdutoController";
 import { listarCategoriasController } from "./controllers/CategoriaController";
-
-
-
 
 function App() {
 
@@ -37,7 +35,7 @@ function App() {
 
             <Route
               path="/ordens"
-              element={ <OrdensDeProducao produtos={produtos} onCriarOrdem={(ordem) => handleCriarOrdem(produtos, ordem, setProdutos)} />}
+              element={ <OrdensDeProducao produtos={produtos} onCriarOrdem={(ordem) => gerarOrdemProducaoController(ordem)} />}
             />
             
           </Routes>
