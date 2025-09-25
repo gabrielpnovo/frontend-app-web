@@ -23,8 +23,7 @@ export default function LoginForm({ onLoginSuccess }) {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Login com Google");
-    onLoginSuccess(); // Simulação para login via Google
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
 
   return (
