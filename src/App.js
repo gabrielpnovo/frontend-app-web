@@ -9,6 +9,8 @@ import { gerarOrdemProducaoController } from "./controllers/OrdemProducaoControl
 import { adicionarProdutoController, listarProdutosService} from "./controllers/ProdutoController";
 import { listarCategoriasController } from "./controllers/CategoriaController";
 
+// comentário teste
+
 function App() {
 
   // Estado para simular autenticação
