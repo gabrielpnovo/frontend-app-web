@@ -9,6 +9,8 @@ import { adicionarProdutoController, handleCriarOrdem, listarProdutosService } f
 import { listarCategoriasController } from "./controllers/CategoriaController";
 import LoginSuccess from "./view/components/Form/LoginSuccess";
 
+// teste 2
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem("jwt"));
   const [produtos, setProdutos] = useState(listarProdutosService());
