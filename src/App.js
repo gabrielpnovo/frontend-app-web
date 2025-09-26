@@ -9,12 +9,10 @@ import { adicionarProdutoController, handleCriarOrdem, listarProdutosService } f
 import { listarCategoriasController } from "./controllers/CategoriaController";
 import LoginSuccess from "./view/components/Form/LoginSuccess";
 
-// teste 2
-
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem("jwt"));
-  const [produtos, setProdutos] = useState(listarProdutosService());
-  const [categorias] = useState(listarCategoriasController());
+  const [produtos, setProdutos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   // Recupera o JWT do localStorage no carregamento inicial
   useEffect(() => {
@@ -24,31 +22,42 @@ function App() {
     }
   }, []);
 
+  // Carrega produtos e categorias somente se o usuário estiver autenticado
+  useEffect(() => {
+    if (isAuthenticated) {
+      setProdutos(listarProdutosService());
+      setCategorias(listarCategoriasController());
+    } else {
+      setProdutos([]);
+      setCategorias([]);
+    }
+  }, [isAuthenticated]);
+
 
   return (
     <Router>
-      {isAuthenticated || localStorage.getItem("jwt") ? (
-        <Layout onLogout={() => {
-          localStorage.removeItem("jwt");
-          setIsAuthenticated(false);
-        }}>
+        {isAuthenticated || localStorage.getItem("jwt") ? (
+          <Layout onLogout={() => {
+            localStorage.removeItem("jwt");
+            setIsAuthenticated(false);
+          }}>
+            <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard produtos={produtos} />} />
+              <Route path="/produtos" element={<Products onAddProduto={(novo) => adicionarProdutoController(produtos, novo, setProdutos)}
+                categorias={categorias}
+              />} />
+              <Route path="/ordens" element={<OrdensDeProducao produtos={produtos}
+                onCriarOrdem={(ordem) => handleCriarOrdem(produtos, ordem, setProdutos)} />} />
+            </Routes>
+          </Layout>
+        ) : (
           <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard produtos={produtos} />} />
-            <Route path="/produtos" element={<Products onAddProduto={(novo) => adicionarProdutoController(produtos, novo, setProdutos)}
-              categorias={categorias}
-            />} />
-            <Route path="/ordens" element={<OrdensDeProducao produtos={produtos}
-              onCriarOrdem={(ordem) => handleCriarOrdem(produtos, ordem, setProdutos)} />} />
+            <Route path="/login" element={<Login onLoginSuccess={(jwt) => setIsAuthenticated(true)} />} />
+            <Route path="/login/success" element={<LoginSuccess onLogin={(token) => setIsAuthenticated(true)} />} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
-        </Layout>
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login onLoginSuccess={(jwt) => setIsAuthenticated(true)} />} />
-          <Route path="/login/success" element={<LoginSuccess onLogin={(token) => setIsAuthenticated(true)} />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      )}
+        )}
     </Router>
 
   );
