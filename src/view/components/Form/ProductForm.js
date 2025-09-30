@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 export default function ProductForm({ onAddProduto, categorias }) {
+
   const [formData, setFormData] = useState({
     nome: "",
     descricao: "",
@@ -21,7 +22,7 @@ export default function ProductForm({ onAddProduto, categorias }) {
     max: "",
     atual: "",
   });
-
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

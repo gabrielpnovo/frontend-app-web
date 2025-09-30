@@ -20,6 +20,5 @@ export function listarCategoriasModel() {
   .catch(error => {
     console.error('Erro ao acessar a API:', error);
   });
-
   return categorias;
 }
